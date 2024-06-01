@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/css/weeklyanddaily.css" />
+
+<% for(let habit of habits) {%>
+<div class="container-3 daily-view" style="display: none">
+  <!-- habit title -->
+  <div class="habit-title"><h2><%= habit.title %></h2></div>
+
+  <!-- habit details in daily view-->
+  <div class="habit-container">
+    <!-- complete status -->
+
+    <div class="mark-status-daily">
+      <% let months = ["","Jan", "Feb", "March", "Apr", "May", "June", "Jul",
+      "Aug", "Sept", "Oct", "Nov", "Dec"]; let startDate = habit.dates[0].date;
+      let start = months[startDate.trim(" ")[0]] +" " +startDate.substring(2);
+      %> <%=start%>
+    </div>
+
+    <!-- habit desciption -->
+    <div class="habit-desc">
+      <% if(!habit.desc) { %>
+      <p>- No description -</p>
+      <% } else { %>
+      <p><%= habit.desc %></p>
+      <% } %>
+    </div>
+
+    <!-- options : edit, delete -->
+    <div class="menu">
+      <a class="clickIt"  style="text-decoration: none">
+        <i
+          class="fa-solid fa-pencil fa-lg"
+          data-bs-toggle="modal"
+          data-bs-target="#updatehabit_<%= habit._id %>"
+          style="color: rgb(241, 121, 109)"
+        ></i>
+      </a>
+      <div
+        class="modal fade"
+        id="updatehabit_<%= habit._id %>"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="centered-heading">update a habits</h2>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form
+                action="/habits/update-habit/?id=<%= habit._id%>&user=<%=locals.user%>"
+                method="post"
+              >
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Habit Title</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    name="title"
+                    aria-describedby="emailHelp"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Habit Description</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="description"
+                    id="exampleInputPassword1"
+                    required
+                  />
+                </div>
+
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <button class="btn btn-primary" type="submit">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- deleting the habit -->
+
+      <a
+        href="/habits/delete-habit/?id=<%=habit._id%>"
+        style="text-decoration: none"
+      >
+        <i
+          class="fa-regular fa-trash-can fa-lg"
+          style="color: rgb(241, 121, 109)"
+        ></i>
+      </a>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<!-- updating the habit modal -->

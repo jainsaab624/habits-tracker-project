@@ -1,0 +1,154 @@
+<link rel="stylesheet" href="/css/habit.css">
+
+<div class="container-2">
+  <% if(habits.length==0) { %>
+  <div id="noHabitText">
+    Looks like you aren't tracking any habits yet, so... <br />
+    what do you want to start doing every day?
+  </div>
+
+  <div class="habit-button-container fixed-bottom text-center">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#habitModal"
+    >
+      + Add new Habit
+    </button>
+    <!-- Modal -->
+  </div>
+  <div
+    class="modal fade"
+    id="habitModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="centered-heading">Adding a habits</h2>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="/habits/addnewhabit" method="post">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Habit Title</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                name="title"
+                aria-describedby="emailHelp"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Habit Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                name="description"
+                id="exampleInputPassword1"
+                required
+              />
+            </div>
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } else { %>
+  <div>
+    <div>
+      <!-- weekly view -->
+      <%- include('weeklyview'); %>
+
+      <!-- daily view  -->
+      <%- include('dailyview'); %>
+    </div>
+
+    <button
+      type="button"
+      class="button-30"
+      id="open-btn"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      + Add new Habit
+    </button>
+
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="centered-heading">Adding a habits</h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="/habits/addnewhabit" method="post">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Habit Title</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  name="title"
+                  aria-describedby="emailHelp"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Habit Description</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  name="description"
+                  id="exampleInputPassword1"
+                  required
+                />
+              </div>
+
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="submit">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="change-view" class="button-30" onclick="changeView()">
+      Show Daily
+    </button>
+  </div>
+  <% } %>
+</div>
