@@ -65,5 +65,13 @@ a:focus {
 }
 
 
+@media (max-width:992px){
+  .container-fluid button{
+    background-color: #fff;
+  }
+}
+
+
+
 
 
